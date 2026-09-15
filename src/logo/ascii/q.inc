@@ -96,6 +96,15 @@ static const FFlogo Q[] = {
         },
     },
     #endif
+    #ifdef FASTFETCH_DATATEXT_LOGO_QNX
+    // QNX
+    {
+        .names = { "QNX" },
+        .lines = FASTFETCH_DATATEXT_LOGO_QNX,
+        .colors = {
+        },
+    },
+    #endif
     // LAST
     {},
 };
