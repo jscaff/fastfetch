@@ -6,13 +6,17 @@
 #include "logo/logo.h"
 #include "modules/colors/colors.h"
 
+#ifndef min
 static inline uint8_t min(uint8_t a, uint8_t b) {
     return a < b ? a : b;
 }
+#endif
 
+#ifndef min
 static inline uint8_t max(uint8_t a, uint8_t b) {
     return a > b ? a : b;
 }
+#endif
 
 bool ffPrintColors(FFColorsOptions* options) {
     bool flag = false;

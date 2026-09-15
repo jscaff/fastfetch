@@ -29,7 +29,7 @@
 #if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__APPLE__) || defined(__NetBSD__) || defined(__HAIKU__)
     #include <net/if_media.h>
     #include <net/if_dl.h>
-#elif !defined(__GNU__)
+#elif !defined(__GNU__) && !defined(__QNX__)
     #include <netpacket/packet.h>
 #endif
 #if defined(__sun) || defined(__HAIKU__)
@@ -365,12 +365,12 @@ const char* ffDetectLocalIps(const FFLocalIpOptions* options, FFlist* results) {
                     FF_DEBUG("Added IPv6 entry for interface %s", ifa->ifa_name);
                 }
                 break;
-#if __FreeBSD__ || __OpenBSD__ || __APPLE__ || __NetBSD__ || __HAIKU__
+#if __FreeBSD__ || __OpenBSD__ || __APPLE__ || __NetBSD__ || __HAIKU__ || __QNX__
             case AF_LINK:
                 adapter->mac = ifa;
                 FF_DEBUG("Updated MAC entry for interface %s", ifa->ifa_name);
                 break;
-#elif !__sun && !__GNU__
+#elif !__sun && !__GNU__ && !__QNX__
             case AF_PACKET:
                 adapter->mac = ifa;
                 FF_DEBUG("Updated MAC entry for interface %s", ifa->ifa_name);
@@ -516,7 +516,7 @@ const char* ffDetectLocalIps(const FFLocalIpOptions* options, FFlist* results) {
             }
         }
     mac:
-#if !defined(__sun) && !defined(__GNU__)
+#if !defined(__sun) && !defined(__GNU__) && !defined(__QNX__)
         if (options->showType & FF_LOCALIP_TYPE_MAC_BIT) {
             if (adapter->mac->ifa_addr) {
     #if __FreeBSD__ || __OpenBSD__ || __APPLE__ || __NetBSD__ || __HAIKU__

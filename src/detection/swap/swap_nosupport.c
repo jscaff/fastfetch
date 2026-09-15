@@ -1,5 +1,5 @@
 #include "swap.h"
 
-const char* ffDetectSwap(FFSwapResult* swap) {
+const char* ffDetectSwap(FFlist* result) {
     return "Not supported on this platform";
 }

@@ -280,7 +280,7 @@ void listFilesRecursively(uint32_t baseLength, FFstrbuf* folder, uint8_t indenta
         }
 
         bool isDir = false;
-#if !defined(__sun) && !defined(__HAIKU__)
+#if !defined(__sun) && !defined(__HAIKU__) && !defined(__QNX__)
         if (entry->d_type != DT_UNKNOWN && entry->d_type != DT_LNK) {
             isDir = entry->d_type == DT_DIR;
         } else

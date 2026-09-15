@@ -55,7 +55,7 @@ static const char* getSshdVersion(FFstrbuf* version) {
 #ifdef FF_HAVE_ZLIB
     #include "common/library.h"
     #include "common/path.h"
-    
+
     #include <stdlib.h>
     #include <zlib.h>
 

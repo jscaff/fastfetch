@@ -23,6 +23,9 @@
 #elif __OpenBSD__
     // https://github.com/openbsd/src/blob/ca647cfa4ec3ccb8360714bc0ebc32a394f7fb6a/regress/sys/netinet/bindconnect/bindconnect.c#L250
     #define ROUNDUP(a) ROUNDUP2((a), sizeof(long))
+#elif __QNX__
+    // QNX io-sock is freebsd network stack
+    #define ROUNDUP(a) ROUNDUP2((a), sizeof(long))
 #else
     #error unknown platform
 #endif

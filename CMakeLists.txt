@@ -45,6 +45,8 @@ elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "Haiku")
     set(Haiku TRUE CACHE BOOL "..." FORCE)
 elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "GNU")
     set(GNU TRUE CACHE BOOL "..." FORCE)
+elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "QNX")
+    set(QNX TRUE CACHE BOOL "..." FORCE)
 elseif(NOT APPLE AND NOT WIN32)
     message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif()
@@ -78,7 +80,7 @@ endif()
 include(CMakeDependentOption)
 
 cmake_dependent_option(ENABLE_VULKAN "Enable vulkan" ON "LINUX OR APPLE OR FreeBSD OR OpenBSD OR NetBSD OR WIN32 OR ANDROID OR SunOS OR Haiku OR GNU" OFF)
-cmake_dependent_option(ENABLE_WAYLAND "Enable wayland-client" ON "ANDROID OR LINUX OR FreeBSD OR OpenBSD OR NetBSD" OFF)
+cmake_dependent_option(ENABLE_WAYLAND "Enable wayland-client" ON "ANDROID OR LINUX OR FreeBSD OR OpenBSD OR NetBSD OR QNX" OFF)
 cmake_dependent_option(ENABLE_XCB_RANDR "Enable xcb-randr" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_XRANDR "Enable xrandr" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_DRM "Enable libdrm" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR SunOS OR GNU" OFF)
@@ -89,7 +91,7 @@ cmake_dependent_option(ENABLE_GIO "Enable gio-2.0" ON "LINUX OR FreeBSD OR OpenB
 cmake_dependent_option(ENABLE_DCONF "Enable dconf" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_EET "Enable eet" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_DBUS "Enable dbus-1" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR Haiku OR GNU" OFF)
-cmake_dependent_option(ENABLE_SQLITE3 "Enable sqlite3" ON "LINUX OR FreeBSD OR APPLE OR OpenBSD OR NetBSD OR SunOS OR GNU" OFF)
+cmake_dependent_option(ENABLE_SQLITE3 "Enable sqlite3" ON "LINUX OR FreeBSD OR APPLE OR OpenBSD OR NetBSD OR SunOS OR GNU OR QNX" OFF)
 cmake_dependent_option(ENABLE_RPM "Enable rpm" ON "LINUX OR GNU" OFF)
 cmake_dependent_option(ENABLE_IMAGEMAGICK7 "Enable imagemagick 7" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR APPLE OR ANDROID OR WIN32 OR SunOS OR Haiku OR GNU" OFF)
 cmake_dependent_option(ENABLE_IMAGEMAGICK6 "Enable imagemagick 6" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR APPLE OR SunOS OR GNU" OFF)
@@ -844,6 +846,92 @@ elseif(FreeBSD)
             src/detection/wifi/wifi_bsd.c
         )
     endif()
+elseif(QNX)
+    list(APPEND LIBFASTFETCH_SRC
+        src/common/impl/dbus.c # kk
+        src/common/impl/io_unix.c # kk
+        src/common/impl/netif_bsd.c # kk
+        src/common/impl/networking_linux.c # kk
+        src/common/impl/processing_linux.c # kk
+        # src/common/impl/sysctl.c
+        src/common/impl/FFPlatform_unix.c # kk
+        src/common/impl/binary_linux.c # kk
+        src/common/impl/kmod_nosupport.c
+        src/detection/battery/battery_nosupport.c
+        src/detection/bios/bios_nosupport.c
+        src/detection/bluetoothradio/bluetoothradio_nosupport.c
+        src/detection/board/board_nosupport.c
+        src/detection/bootmgr/bootmgr_nosupport.c
+        src/detection/brightness/brightness_nosupport.c
+        src/detection/btrfs/btrfs_nosupport.c
+        src/detection/chassis/chassis_nosupport.c
+        src/detection/codec/codec_linux.c # idk
+        src/detection/cpu/cpu_nosupport.c
+        src/detection/cpucache/cpucache_nosupport.c
+        src/detection/cpuusage/cpuusage_nosupport.c
+        src/detection/cursor/cursor_linux.c # idk
+        src/detection/disk/disk_nosupport.c
+        src/detection/dns/dns_linux.c # kk
+        src/detection/physicaldisk/physicaldisk_nosupport.c
+        src/detection/physicalmemory/physicalmemory_nosupport.c
+        src/detection/diskio/diskio_nosupport.c
+        src/detection/displayserver/linux/displayserver_linux.c
+        src/detection/displayserver/linux/common.c
+        src/detection/displayserver/linux/drm.c
+        src/detection/displayserver/linux/wayland/wayland.c
+        src/detection/displayserver/linux/wayland/global-output.c
+        src/detection/displayserver/linux/wayland/kde-output.c
+        src/detection/displayserver/linux/wayland/wl-output-protocol.c
+        src/detection/displayserver/linux/wayland/wp-color-management-v1-protocol.c
+        src/detection/displayserver/linux/wayland/kde-output-device-v2-protocol.c
+        src/detection/displayserver/linux/wayland/xdg-output-unstable-v1-protocol.c
+        src/detection/displayserver/linux/wmde.c
+        src/detection/displayserver/linux/xcb.c
+        src/detection/displayserver/linux/xlib.c
+        src/detection/font/font_linux.c
+        src/detection/gpu/gpu_nosupport.c
+        src/detection/gpu/gpu_nosupport.c
+        src/detection/gpu/gpu_nosupport.c
+        src/detection/gpu/gpu_bsddrm.c
+        src/detection/gtk_qt/gtk.c
+        src/detection/host/host_nosupport.c
+        src/detection/lm/lm_linux.c # fine
+        src/detection/icons/icons_linux.c
+        src/detection/initsystem/initsystem_linux.c
+        src/detection/keyboard/keyboard_nosupport.c
+        src/detection/libc/libc_nosupport.c # todo
+        src/detection/loadavg/loadavg_nosupport.c
+        src/detection/locale/locale_linux.c
+        src/detection/localip/localip_linux.c # kk
+        src/detection/gamepad/gamepad_nosupport.c
+        src/detection/media/media_nosupport.c
+        src/detection/memory/memory_nosupport.c # todo
+        src/detection/mouse/mouse_nosupport.c
+        src/detection/netio/netio_bsd.c # We'll see
+        src/detection/opengl/opengl_linux.c # we'll see
+        src/detection/os/os_qnx.c # todo
+        src/detection/packages/packages_nosupport.c  # todo fix linux to use our dirent stuff
+        src/detection/poweradapter/poweradapter_nosupport.c
+        src/detection/gtk_qt/qt.c
+        src/detection/sound/sound_nosupport.c
+        src/detection/swap/swap_nosupport.c
+        src/detection/terminalfont/terminalfont_linux.c
+        src/detection/terminalshell/terminalshell_linux.c
+        src/detection/terminalsize/terminalsize_linux.c
+        src/detection/theme/theme_linux.c
+        src/detection/tpm/tpm_nosupport.c
+        src/detection/uptime/uptime_qnx.c
+        src/detection/users/users_nosupport.c # Try and get linux to work
+        src/detection/wallpaper/wallpaper_linux.c
+        src/detection/wm/wm_linux.c
+        src/detection/de/de_linux.c
+        src/detection/wmtheme/wmtheme_linux.c
+        src/detection/camera/camera_nosupport.c
+        src/detection/bluetooth/bluetooth_nosupport.c
+        src/detection/processes/processes_nosupport.c
+        src/detection/top/top_linux.c # todo
+        src/detection/wifi/wifi_nosupport.c
+    )
 elseif(NetBSD)
     list(APPEND LIBFASTFETCH_SRC
         src/common/impl/dbus.c
@@ -2017,6 +2105,10 @@ elseif(GNU)
     target_link_libraries(libfastfetch
         PRIVATE "m"
         PRIVATE "ps"
+    )
+elseif(QNX)
+    target_link_libraries(libfastfetch
+        PRIVATE "socket"
     )
 elseif(ANDROID)
     target_link_libraries(libfastfetch

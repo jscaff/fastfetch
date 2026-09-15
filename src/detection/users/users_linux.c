@@ -14,7 +14,7 @@
     #define setutxent setutent
     #define getutxent getutent
 #endif
-#if __linux__ || __GNU__
+#if __linux__ || __GNU__ || __QNX__
     #include <netinet/in.h>
     #include <arpa/inet.h>
 #endif

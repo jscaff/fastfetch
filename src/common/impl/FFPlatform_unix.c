@@ -142,6 +142,10 @@ static void getExePath(FFPlatform* platform) {
             break;
         }
     }
+#elif defined(__QNX__)
+    _cmdname(exePath);
+    size_t exePathLen = 0;
+    exePathLen = strlen(exePath);
 #endif
     if (exePathLen > 0) {
         ffStrbufEnsureFree(&platform->exePath, PATH_MAX);

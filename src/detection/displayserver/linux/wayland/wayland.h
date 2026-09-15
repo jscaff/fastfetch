@@ -9,9 +9,11 @@
 
     #include "../displayserver_linux.h"
 
+#ifndef min
 static inline uint32_t min(uint32_t a, uint32_t b) {
     return a < b ? a : b;
 }
+#endif
 
 typedef enum WaylandProtocolType: uint8_t {
     FF_WAYLAND_PROTOCOL_TYPE_NONE,
