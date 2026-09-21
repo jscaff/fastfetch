@@ -59,6 +59,8 @@
     #define FF_SYSNAME "Haiku"
 #elif defined(__GNU__)
     #define FF_SYSNAME "GNU"
+#elif defined(__QNX__)
+    #define FF_SYSNAME "QNX"
 #else
     #define FF_SYSNAME "Unknown"
 #endif

@@ -866,8 +866,8 @@ elseif(QNX)
         src/detection/btrfs/btrfs_nosupport.c
         src/detection/chassis/chassis_nosupport.c
         src/detection/codec/codec_linux.c # idk
-        src/detection/cpu/cpu_nosupport.c
-        src/detection/cpucache/cpucache_nosupport.c
+        src/detection/cpu/cpu_qnx.c
+        src/detection/cpucache/cpucache_nosupport.c # todo
         src/detection/cpuusage/cpuusage_nosupport.c
         src/detection/cursor/cursor_linux.c # idk
         src/detection/disk/disk_nosupport.c
@@ -899,7 +899,7 @@ elseif(QNX)
         src/detection/icons/icons_linux.c
         src/detection/initsystem/initsystem_linux.c
         src/detection/keyboard/keyboard_nosupport.c
-        src/detection/libc/libc_nosupport.c # todo
+        src/detection/libc/libc_qnx.c
         src/detection/loadavg/loadavg_nosupport.c
         src/detection/locale/locale_linux.c
         src/detection/localip/localip_linux.c # kk
@@ -909,7 +909,7 @@ elseif(QNX)
         src/detection/mouse/mouse_nosupport.c
         src/detection/netio/netio_bsd.c # We'll see
         src/detection/opengl/opengl_linux.c # we'll see
-        src/detection/os/os_qnx.c # todo
+        src/detection/os/os_qnx.c
         src/detection/packages/packages_nosupport.c  # todo fix linux to use our dirent stuff
         src/detection/poweradapter/poweradapter_nosupport.c
         src/detection/gtk_qt/qt.c

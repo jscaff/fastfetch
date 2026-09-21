@@ -102,6 +102,17 @@ static const FFlogo Q[] = {
         .names = { "QNX" },
         .lines = FASTFETCH_DATATEXT_LOGO_QNX,
         .colors = {
+            FF_COLOR_FG_BLUE
+        },
+    },
+    #endif
+    #ifdef FASTFETCH_DATATEXT_LOGO_QNXE
+    // QNX Everywhere
+    {
+        .names = { "QNXe" },
+        .lines = FASTFETCH_DATATEXT_LOGO_QNXE,
+        .colors = {
+            FF_COLOR_FG_RED
         },
     },
     #endif

@@ -14,7 +14,7 @@
 #ifdef __APPLE__
     #include <mach-o/dyld.h>
     #include <sys/sysctl.h>
-#elif defined(__FreeBSD__) || defined(__NetBSD__)
+#elif defined(__FreeBSD__) || defined(__NetBSD__) || defined(__QNX__)
     #include <sys/sysctl.h>
 #elif defined(__OpenBSD__)
     #include <sys/sysctl.h>
@@ -275,6 +275,15 @@ static void getUserShell(FFPlatform* platform, const struct passwd* pwd) {
 static void getSysinfo(FFPlatformSysinfo* info, const struct utsname* uts) {
     ffStrbufAppendS(&info->name, uts->sysname);
     ffStrbufAppendS(&info->release, uts->release);
+#ifdef __QNX__
+    // QNX keeps the same major release number in uname, but
+    // increments the kernel version separately
+    char kerVer[_SYSNAME_SIZE];
+    if (confstr(_CS_KERNEL_VERSION, kerVer, sizeof(kerVer)) > 0) {
+        ffStrbufAppendS(&info->release, "-");
+        ffStrbufAppendS(&info->release, kerVer);
+    }
+#endif
     ffStrbufAppendS(&info->version, uts->version);
 #ifdef __HAIKU__
     /* historical reason */
@@ -282,9 +291,18 @@ static void getSysinfo(FFPlatformSysinfo* info, const struct utsname* uts) {
         ffStrbufSetStatic(&info->architecture, "i386");
     } else
 #endif
+#ifdef __QNX__
+    char cpuArch[_SYSNAME_SIZE];
+    if (confstr(_CS_ARCHITECTURE, cpuArch, sizeof(cpuArch)) > 0) {
+        ffStrbufAppendS(&info->architecture, cpuArch);
+    } else{
         ffStrbufAppendS(&info->architecture, uts->machine);
+    }
+#else
+        ffStrbufAppendS(&info->architecture, uts->machine);
+#endif
 
-#if defined(__FreeBSD__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__NetBSD__)
+#if defined(__FreeBSD__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__NetBSD__) || defined(__QNX__)
     size_t length = sizeof(info->pageSize);
     sysctl((int[]) { CTL_HW, HW_PAGESIZE }, 2, &info->pageSize, &length, nullptr, 0);
 #else
