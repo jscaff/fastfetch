@@ -895,14 +895,14 @@ elseif(QNX)
         src/detection/gpu/gpu_bsddrm.c
         src/detection/gtk_qt/gtk.c
         src/detection/host/host_nosupport.c
-        src/detection/lm/lm_linux.c # fine
+        src/detection/lm/lm_nosupport.c
         src/detection/icons/icons_linux.c
         src/detection/initsystem/initsystem_linux.c
         src/detection/keyboard/keyboard_nosupport.c
         src/detection/libc/libc_qnx.c
         src/detection/loadavg/loadavg_nosupport.c
         src/detection/locale/locale_linux.c
-        src/detection/localip/localip_linux.c # kk
+        src/detection/localip/localip_linux.c
         src/detection/gamepad/gamepad_nosupport.c
         src/detection/media/media_nosupport.c
         src/detection/memory/memory_nosupport.c # todo
@@ -910,7 +910,7 @@ elseif(QNX)
         src/detection/netio/netio_bsd.c # We'll see
         src/detection/opengl/opengl_linux.c # we'll see
         src/detection/os/os_qnx.c
-        src/detection/packages/packages_nosupport.c  # todo fix linux to use our dirent stuff
+        src/detection/packages/packages_qnx.c
         src/detection/poweradapter/poweradapter_nosupport.c
         src/detection/gtk_qt/qt.c
         src/detection/sound/sound_nosupport.c
