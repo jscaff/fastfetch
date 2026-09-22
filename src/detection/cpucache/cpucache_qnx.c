@@ -20,6 +20,9 @@ void recurseGetCache(FFCPUCacheResult* result, uint32_t idx, uint32_t prevLevel)
     recurseGetCache(result, cacheattr->next, prevLevel + 1);
 }
 
+// Unfortunately the only cache api on QNX is self-declared, so it's not
+// garanteed to be filled in, complete or accurate, however I will display it
+// as it is provided
 const char* ffDetectCPUCache(FFCPUCacheResult* result) {
     struct cpuinfo_entry *cpuinfo = SYSPAGE_ENTRY(cpuinfo);
 

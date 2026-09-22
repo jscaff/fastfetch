@@ -870,7 +870,7 @@ elseif(QNX)
         src/detection/cpucache/cpucache_qnx.c
         src/detection/cpuusage/cpuusage_nosupport.c # We don't have a resmgr that can give a live snapshot of the cpu usage, we would need to calculate over time
         src/detection/cursor/cursor_linux.c # idk
-        src/detection/disk/disk_nosupport.c
+        src/detection/disk/disk_qnx.c # todo
         src/detection/dns/dns_linux.c # kk
         src/detection/physicaldisk/physicaldisk_nosupport.c
         src/detection/physicalmemory/physicalmemory_nosupport.c
