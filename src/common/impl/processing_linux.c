@@ -36,6 +36,10 @@
     #include <OS.h>
     #include <image.h>
 #endif
+#if defined(__QNX__)
+    #include <devctl.h>
+    #include <sys/procfs.h>
+#endif
 
 #ifndef environ
 extern char** environ;
@@ -658,6 +662,38 @@ const char* ffProcessGetBasicInfoLinux(pid_t pid, FFstrbuf* name, pid_t* ppid, i
         if (ppid) {
             *ppid = info.parent;
         }
+    }
+
+    FF_UNUSED(tty);
+
+#elif defined(__QNX__)
+
+    char ctlPath[PATH_MAX];
+    snprintf(ctlPath, sizeof(ctlPath), "/proc/%d/ctl", (int) pid);
+    int ctlFd = open(ctlPath, O_RDONLY);
+    if (ctlFd == -1) return "devctl() failed";
+
+    // we need to define this struct since devctl fills the hdr field and then adds the path after.
+    struct {
+        procfs_debuginfo hdr;
+        char             _path[PATH_MAX]; // buffer
+    } mapdbg;
+    if (devctl(ctlFd, DCMD_PROC_MAPDEBUG_BASE, &mapdbg, sizeof(mapdbg), NULL) == EOK) {
+        ffStrbufSetS(name, mapdbg.hdr.path);
+    }else {
+        ffStrbufSetS(name, "Unknown");
+    }
+
+    if (ppid != NULL) {
+        procfs_info procInfo;
+        if (devctl(ctlFd, DCMD_PROC_INFO, &procInfo, sizeof(procInfo), NULL) == EOK) {
+            *ppid = procInfo.parent;
+        }
+        else {
+            FF_UNUSED(ppid);
+        }
+    }else {
+        FF_UNUSED(ppid);
     }
 
     FF_UNUSED(tty);

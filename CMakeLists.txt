@@ -83,14 +83,14 @@ cmake_dependent_option(ENABLE_VULKAN "Enable vulkan" ON "LINUX OR APPLE OR FreeB
 cmake_dependent_option(ENABLE_WAYLAND "Enable wayland-client" ON "ANDROID OR LINUX OR FreeBSD OR OpenBSD OR NetBSD OR QNX" OFF)
 cmake_dependent_option(ENABLE_XCB_RANDR "Enable xcb-randr" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_XRANDR "Enable xrandr" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR GNU" OFF)
-cmake_dependent_option(ENABLE_DRM "Enable libdrm" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR SunOS OR GNU" OFF)
+cmake_dependent_option(ENABLE_DRM "Enable libdrm" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR SunOS OR GNU OR QNX" OFF)
 cmake_dependent_option(ENABLE_VADRM "Enable libva-drm" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_VAX11 "Enable libva-x11" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_VDPAU "Enable vdpau" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_GIO "Enable gio-2.0" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_DCONF "Enable dconf" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR GNU" OFF)
 cmake_dependent_option(ENABLE_EET "Enable eet" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR GNU" OFF)
-cmake_dependent_option(ENABLE_DBUS "Enable dbus-1" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR Haiku OR GNU" OFF)
+cmake_dependent_option(ENABLE_DBUS "Enable dbus-1" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR ANDROID OR SunOS OR Haiku OR GNU OR QNX" OFF)
 cmake_dependent_option(ENABLE_SQLITE3 "Enable sqlite3" ON "LINUX OR FreeBSD OR APPLE OR OpenBSD OR NetBSD OR SunOS OR GNU OR QNX" OFF)
 cmake_dependent_option(ENABLE_RPM "Enable rpm" ON "LINUX OR GNU" OFF)
 cmake_dependent_option(ENABLE_IMAGEMAGICK7 "Enable imagemagick 7" ON "LINUX OR FreeBSD OR OpenBSD OR NetBSD OR APPLE OR ANDROID OR WIN32 OR SunOS OR Haiku OR GNU" OFF)
@@ -848,14 +848,14 @@ elseif(FreeBSD)
     endif()
 elseif(QNX)
     list(APPEND LIBFASTFETCH_SRC
-        src/common/impl/dbus.c # kk
-        src/common/impl/io_unix.c # kk
-        src/common/impl/netif_bsd.c # kk
-        src/common/impl/networking_linux.c # kk
-        src/common/impl/processing_linux.c # kk
+        src/common/impl/dbus.c
+        src/common/impl/io_unix.c
+        src/common/impl/netif_bsd.c
+        src/common/impl/networking_linux.c
+        src/common/impl/processing_linux.c
         # src/common/impl/sysctl.c
-        src/common/impl/FFPlatform_unix.c # kk
-        src/common/impl/binary_linux.c # kk
+        src/common/impl/FFPlatform_unix.c
+        src/common/impl/binary_linux.c
         src/common/impl/kmod_nosupport.c
         src/detection/battery/battery_nosupport.c
         src/detection/bios/bios_nosupport.c
@@ -865,13 +865,13 @@ elseif(QNX)
         src/detection/brightness/brightness_nosupport.c
         src/detection/btrfs/btrfs_nosupport.c
         src/detection/chassis/chassis_nosupport.c
-        src/detection/codec/codec_linux.c # idk
+        src/detection/codec/codec_linux.c
         src/detection/cpu/cpu_qnx.c
         src/detection/cpucache/cpucache_qnx.c
         src/detection/cpuusage/cpuusage_nosupport.c # We don't have a resmgr that can give a live snapshot of the cpu usage, we would need to calculate over time
-        src/detection/cursor/cursor_linux.c # idk
-        src/detection/disk/disk_qnx.c # todo
-        src/detection/dns/dns_linux.c # kk
+        src/detection/cursor/cursor_linux.c
+        src/detection/disk/disk_qnx.c
+        src/detection/dns/dns_linux.c
         src/detection/physicaldisk/physicaldisk_nosupport.c
         src/detection/physicalmemory/physicalmemory_nosupport.c
         src/detection/diskio/diskio_nosupport.c
