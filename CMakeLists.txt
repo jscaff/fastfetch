@@ -853,7 +853,6 @@ elseif(QNX)
         src/common/impl/netif_bsd.c
         src/common/impl/networking_linux.c
         src/common/impl/processing_linux.c
-        # src/common/impl/sysctl.c
         src/common/impl/FFPlatform_unix.c
         src/common/impl/binary_linux.c
         src/common/impl/kmod_nosupport.c
@@ -868,7 +867,7 @@ elseif(QNX)
         src/detection/codec/codec_linux.c
         src/detection/cpu/cpu_qnx.c
         src/detection/cpucache/cpucache_qnx.c
-        src/detection/cpuusage/cpuusage_nosupport.c # We don't have a resmgr that can give a live snapshot of the cpu usage, we would need to calculate over time
+        src/detection/cpuusage/cpuusage_nosupport.c # QNX doesn't have a resmgr that can give a live snapshot of the cpu usage, we would need to calculate over time
         src/detection/cursor/cursor_linux.c
         src/detection/disk/disk_qnx.c
         src/detection/dns/dns_linux.c
@@ -905,10 +904,10 @@ elseif(QNX)
         src/detection/localip/localip_linux.c
         src/detection/gamepad/gamepad_nosupport.c
         src/detection/media/media_nosupport.c
-        src/detection/memory/memory_qnx.c # todo
+        src/detection/memory/memory_qnx.c
         src/detection/mouse/mouse_nosupport.c
         src/detection/netio/netio_bsd.c
-        src/detection/opengl/opengl_linux.c # we'll see
+        src/detection/opengl/opengl_linux.c
         src/detection/os/os_qnx.c
         src/detection/packages/packages_qnx.c
         src/detection/poweradapter/poweradapter_nosupport.c
@@ -921,7 +920,7 @@ elseif(QNX)
         src/detection/theme/theme_linux.c
         src/detection/tpm/tpm_nosupport.c
         src/detection/uptime/uptime_qnx.c
-        src/detection/users/users_nosupport.c # We have utmp, but it's not complete and not enabled by default
+        src/detection/users/users_nosupport.c # UTMP integration is incomplete and disabled by default
         src/detection/wallpaper/wallpaper_linux.c
         src/detection/wm/wm_linux.c
         src/detection/de/de_linux.c
@@ -929,7 +928,7 @@ elseif(QNX)
         src/detection/camera/camera_nosupport.c
         src/detection/bluetooth/bluetooth_nosupport.c
         src/detection/processes/processes_qnx.c
-        src/detection/top/top_linux.c # Same as cpuusage
+        src/detection/top/top_nosupport.c # Same issue as cpuusage
         src/detection/wifi/wifi_nosupport.c
     )
 elseif(NetBSD)
