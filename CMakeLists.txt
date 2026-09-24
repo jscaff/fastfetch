@@ -905,9 +905,9 @@ elseif(QNX)
         src/detection/localip/localip_linux.c
         src/detection/gamepad/gamepad_nosupport.c
         src/detection/media/media_nosupport.c
-        src/detection/memory/memory_nosupport.c # todo
+        src/detection/memory/memory_qnx.c # todo
         src/detection/mouse/mouse_nosupport.c
-        src/detection/netio/netio_bsd.c # We'll see
+        src/detection/netio/netio_bsd.c
         src/detection/opengl/opengl_linux.c # we'll see
         src/detection/os/os_qnx.c
         src/detection/packages/packages_qnx.c
@@ -929,7 +929,7 @@ elseif(QNX)
         src/detection/camera/camera_nosupport.c
         src/detection/bluetooth/bluetooth_nosupport.c
         src/detection/processes/processes_qnx.c
-        src/detection/top/top_linux.c # todo
+        src/detection/top/top_linux.c # Same as cpuusage
         src/detection/wifi/wifi_nosupport.c
     )
 elseif(NetBSD)
