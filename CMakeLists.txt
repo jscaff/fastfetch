@@ -921,14 +921,14 @@ elseif(QNX)
         src/detection/theme/theme_linux.c
         src/detection/tpm/tpm_nosupport.c
         src/detection/uptime/uptime_qnx.c
-        src/detection/users/users_nosupport.c # Try and get linux to work
+        src/detection/users/users_nosupport.c # We have utmp, but it's not complete and not enabled by default
         src/detection/wallpaper/wallpaper_linux.c
         src/detection/wm/wm_linux.c
         src/detection/de/de_linux.c
         src/detection/wmtheme/wmtheme_linux.c
         src/detection/camera/camera_nosupport.c
         src/detection/bluetooth/bluetooth_nosupport.c
-        src/detection/processes/processes_nosupport.c
+        src/detection/processes/processes_qnx.c
         src/detection/top/top_linux.c # todo
         src/detection/wifi/wifi_nosupport.c
     )
